@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Chgen
 
 TODO: Write a gem description
@@ -27,3 +28,9 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+=======
+chgen
+=====
+
+Cheat Sheet generator
+>>>>>>> 66482591bded3549a17aee9f2fa2083f47062be7
