@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'chgen'
+require 'optparse'
+require 'gist'
+
+options = {}
+filenames = []
+
+require 'pry'
+
+# binding.pry
+
+OptionParser.new do |opts|
+    executable_name = File.split($0)[1]
+    opts.banner = <<-EOS
+Explanation of the Cheat Sheet Generator
+
+Usage: #{executable_name} [-o|-c|-e] [-p] [-d DESC]
+       #{executable_name} --another
+
+    EOS
+
+    opts.on("-f", "--filename FILE", "Cheat Sheet filename") do |filename|
+        filenames << filename
+        options[:filename] = filename
+    end
+
+end.parse!
+
+# Raise an exeption if we have not found a filename option
+raise OptionParser::MissingArgument if options[:filename].nil?
+
+begin
+    # debugger
+    Chgen.create(options[:filename])
+end

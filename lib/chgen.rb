@@ -1,5 +1,9 @@
 require "chgen/version"
 
 module Chgen
-  # Your code goes here...
+    extend self
+
+    def create(filename, options = {})
+        puts filename
+    end
 end
