@@ -32,6 +32,5 @@ end.parse!
 raise OptionParser::MissingArgument if options[:filename].nil?
 
 begin
-    # debugger
     Chgen.create(options[:filename])
 end

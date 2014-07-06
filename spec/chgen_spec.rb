@@ -1,23 +1,29 @@
-require_relative '../lib/chgen'
 
-require 'aruba'
-require 'aruba/api'
+# require 'pry'
 
-include Aruba::Api
+describe Chgen do
+    # class DummyClass
+    # end
 
-require 'pathname'
+    # before(:each) do
+    #     @dummy_class = DummyClass.new
+    #     @dummy_class.extend(Chgen)
+    # end
+    # let(:dummy_class) { Class.new { include Chgen } }
+    # subject { dummy_class.new }
+    # subject { Object.new.extend(Chgen) }
 
-root = Pathname.new(__FILE__).parent.parent
-
-# Allows us to run commands directly, without worrying about the CWD
-ENV['PATH'] = "#{root.join('bin').to_s}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
-
-# http://fractio.nl/2013/12/06/cli-testing-with-rspec-and-cucumber-less-aruba/
-
-describe "chgen" do
-    it "should contain -f tag" do
-        lambda {
-            run_simple "chgen"
-        }.should raise_error
+    describe "create" do
+        # subject { Object.new.extend(Chgen) }
+        it "can not create an existing file" do
+            File.stub(:exists?).and_return(true)
+            # proc {
+            #     subject.create("hola")
+            # }.should raise_error
+            expect {
+                subject.create('whatever')
+            }.to raise_error
+            # subject.create("hola").should == true
+        end
     end
 end
