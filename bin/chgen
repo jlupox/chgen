@@ -5,7 +5,7 @@ require 'optparse'
 require 'gist'
 
 options = {}
-filenames = []
+# filenames = []
 
 # require 'pry'
 
@@ -16,22 +16,33 @@ OptionParser.new do |opts|
     opts.banner = <<-EOS
 Explanation of the Cheat Sheet Generator
 
-Usage: #{executable_name} [-o|-c|-e] [-p] [-d DESC]
+Usage: #{executable_name} [-o|-c|-e] [-f filename] [-s directory]
        #{executable_name} --another
 
     EOS
 
     opts.on("-f", "--filename FILE", "Cheat Sheet filename") do |filename|
-        filenames << filename
+        # filenames << filename
         options[:filename] = filename
+    end
+
+    opts.on("-s", "--sync DIRECTORY", "Cheat Sheet directory to sync") do |directory|
+        options[:sync_directory] = directory
     end
 
 end.parse!
 
-# Raise an exeption if we have not found a filename option
-raise OptionParser::MissingArgument if options[:filename].nil?
+# Raise an exeption if no options
+raise OptionParser::MissingArgument if options.empty?
 
 begin
-    Chgen.create(options[:filename])
+
+    if options[:filename]
+        Chgen.create(options[:filename])
+    end
+    if options[:sync_directory]
+        Chgen.sync(options[:sync_directory])
+    end
+
     # puts Chgen::Markdown.parse(options[:filename])
 end

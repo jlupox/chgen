@@ -1,5 +1,6 @@
 require 'chgen/version'
 require 'chgen/markdown'
+require 'chgen/yaml'
 
 require 'gist'
 require 'yaml'
@@ -33,30 +34,13 @@ module Chgen
                            :output => :html_url)
 
         # Create the yaml Gist
-        markdown = create_yaml(filename, yaml_url, md_url)
+        markdown = Chgen::Yaml.create_yaml(filename, yaml_url, md_url)
+        # markdown = create_yaml(filename, yaml_url, md_url)
 
         # Update Markdown Gist
         Gist.gist(markdown,
                   :filename => File.basename(filename, ".*") + '.md',
                   :update => md_url)
-
-        return markdown
     end
 
-    # Create a blank yaml Cheat Sheet from existing [yaml, md] Gists
-    def create_yaml(filename, yaml_url, md_url)
-        yaml = {}
-        yaml["yaml_url"] = yaml_url
-        yaml["md_url"] = md_url
-        yaml["Title"] = "Cheat Sheet title"
-        File.open(filename, "w") { |f| YAML.dump(yaml, f) }
-
-        content = File.read(filename)
-        Gist.gist(content,
-                  :filename => filename,
-                  :update => yaml_url)
-
-        yaml_url = filename
-        Chgen::Markdown.parse(yaml_url)
-    end
 end
