@@ -5,8 +5,6 @@ require 'chgen/yaml'
 require 'gist'
 require 'yaml'
 
-require 'pry-debugger'
-
 module Chgen
     extend self
 
@@ -41,6 +39,14 @@ module Chgen
         Gist.gist(markdown,
                   :filename => File.basename(filename, ".*") + '.md',
                   :update => md_url)
+    end
+
+    def sync(path)
+            if File.directory?(path)
+                Chgen::Yaml.sync_directory(path)
+            else
+                Chgen::Yaml.sync(path)
+            end
     end
 
 end

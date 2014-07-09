@@ -12,7 +12,7 @@ module Chgen
         end
         class MarkdownError < RuntimeError; include Error end
 
-        def parse(filename)
+        def parse_file(filename)
             raise MarkdownError, "The file must exist to analize" unless File.exists?(filename)
             begin
                 yaml = YAML.load(File.open(filename)) || {}
@@ -20,6 +20,24 @@ module Chgen
                 raise MarkdownError, "Error loading the YAML file"
             end
 
+            return parse(yaml)
+            # markdown = "## " + yaml.delete("Title") { |el| "#{el} not found" }
+            # sections = yaml.keys
+
+            # sections.each do |section|
+            #     markdown << "\n\n### #{yaml[section]['title']}\n" unless yaml[section]['title'].nil?
+            #     commands = yaml[section]['commands'] || []
+            #     # markdown << "\n```"
+            #     commands.each do |command, value|
+            #         markdown << "\n  * **``#{command}``** - #{value}"
+            #         # markdown << "\n#{command} - #{value}"
+            #     end
+            #     # markdown << "\n```"
+            # end
+            # return markdown
+        end
+
+        def parse(yaml)
             markdown = "## " + yaml.delete("Title") { |el| "#{el} not found" }
             sections = yaml.keys
 

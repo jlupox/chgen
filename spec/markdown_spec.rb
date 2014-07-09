@@ -9,22 +9,24 @@ describe Chgen::Markdown do
     describe '#parse' do
         it "should parse an existing file" do
             File.stub(:exists?).and_return(false)
-            expect { subject.parse("whatever") }.to raise_error("The file must exist to analize")
+            expect { subject.parse_file("whatever") }.to raise_error("The file must exist to analize")
         end
         it "should parse a YAML file" do
             File.stub(:exists?).and_return(true)
             File.stub(:open).with("filename") { StringIO.new(wrong_yaml) }
-            expect { subject.parse("filename") }.to raise_error("Error loading the YAML file")
+            expect { subject.parse_file("filename") }.to raise_error("Error loading the YAML file")
         end
         it "should works Ok with an empty yaml" do
             File.stub(:exists?).and_return(true)
             File.stub(:open).with("filename") { StringIO.new(empty_yaml) }
-            expect { subject.parse("filename") }.not_to raise_error
+            expect { subject.parse_file("filename") }.not_to raise_error
         end
         it "should works Ok with not title in yaml" do
             File.stub(:exists?).and_return(true)
             File.stub(:open).with("filename") { StringIO.new(no_title_yaml) }
-            expect { subject.parse("filename") }.not_to raise_error
+            expect { subject.parse_file("filename") }.not_to raise_error
         end
     end
+
+    # TODO describe parse
 end
