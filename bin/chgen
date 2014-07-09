@@ -7,7 +7,7 @@ require 'gist'
 options = {}
 filenames = []
 
-require 'pry'
+# require 'pry'
 
 # binding.pry
 
@@ -33,4 +33,5 @@ raise OptionParser::MissingArgument if options[:filename].nil?
 
 begin
     Chgen.create(options[:filename])
+    # puts Chgen::Markdown.parse(options[:filename])
 end

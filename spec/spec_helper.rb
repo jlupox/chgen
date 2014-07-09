@@ -17,6 +17,11 @@
 
 require_relative '../lib/chgen'
 
+require 'fakefs/spec_helpers'
+require 'pry-debugger'
+
+# Dir[File.expand_path("../support/*.rb", __FILE__)].each { |f| require f }
+
 RSpec.configure do |config|
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
